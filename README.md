@@ -1,2 +1,1 @@
-# CppPrograms
-C++ Programs For Study
+Security related simple C++ projects done for practice
