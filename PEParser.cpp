@@ -17,6 +17,8 @@ struct PEHeader
 	unsigned char dnc[18];
 	unsigned short int characteristics;
 	unsigned short int magic;
+	unsigned char dnc2[66];
+	unsigned short int subsystem;
 };
 
 string IsPE(string filepath)
@@ -56,13 +58,14 @@ string IsPE(string filepath)
 		return details;
 	}
 
-	if (pe.characteristics & 0x2000)
+	if (pe.characteristics & 0x2000 && (pe.subsystem >1 && pe.subsystem <=3))
 		details.append("|FILE_TYPE_DLL");
-	else if (pe.characteristics & 0x2)
+	else if (pe.characteristics & 0x2 && (pe.subsystem > 1 && pe.subsystem <= 3))
 		details.append("|FILE_TYPE_EXE");
 	else
 		details.append("|FILE_TYPE_UNKNOWN");
 
+	//cout << " pe subsystem value = " << pe.subsystem << " path = "<<filepath.c_str()<<endl;
 	return details;
 }
 
